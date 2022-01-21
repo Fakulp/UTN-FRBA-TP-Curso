@@ -1,0 +1,32 @@
+<div class="container">
+
+  <div class="row">
+    <form method="POST" class="text-white container col-6 bg-dark py-4 col-11 col-md-8 col-lg-6 mt-5">
+      <div class="form-group mt-3 mb-5">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="email@ejemplo.com"
+        />
+      </div>
+
+      <div class="form-group mt-5 mb-5">
+        <label for="message">Mensaje</label>
+        <textarea
+          class="form-control"
+          id="message"
+          rows="10"
+          cols="30"
+        ></textarea>
+        {{message}}
+      </div>
+    <div class="text-center">
+      <input type="submit" value="Enviar" class="btn btn-light justify-content-center">
+       </div>
+
+    </form>
+  </div>
+</div>
+  
