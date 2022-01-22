@@ -19,13 +19,16 @@ router.post("/",
     //--fin del middleware--
 
 
-
     , async (req, res) => {
-
         const error = validationResult(req)
         if (!error.isEmpty()) {
             const arrayAlert = error.array()
-            res.render("contact", {arrayAlert})
+            const formData = {
+                email: req.body.email, 
+                message: req.body.message
+            }
+            console.log(arrayAlert)
+            res.render("contact", {formData, arrayAlert})
         } else {
 
         const emailMsg = {
@@ -44,7 +47,7 @@ router.post("/",
         })
         await transport.sendMail(emailMsg)
         res.render("contact", {
-            message: "Mensaje recibido",
+            successMessage: "Mensaje recibido",
         })}
     })
 
