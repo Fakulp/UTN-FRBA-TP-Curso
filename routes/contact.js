@@ -1,4 +1,5 @@
 const express = require("express");
+const async = require("hbs/lib/async");
 const router = express.Router();
 const nodemailer = require("nodemailer")
 router.get("/", (req, res) => {
@@ -6,7 +7,7 @@ router.get("/", (req, res) => {
 })
 
 
-router.post("/", (req, res) =>{
+router.post("/", async (req, res) =>{
 
     const emailMsg = {
         to: "atencion@ejemplo.com",
@@ -14,7 +15,7 @@ router.post("/", (req, res) =>{
         subject: "Mensaje importante",
         html: `${req.body.email} envio el siguiente mensaje ${req.body.message}`,
     }
-    const transport = nodemailer.createTransport({
+    const transport =  nodemailer.createTransport({
         host: process.env.HOST,
         port: process.env.PORT,
         auth:{
@@ -22,7 +23,7 @@ router.post("/", (req, res) =>{
         pass: process.env.PASS,
     }
     })
-    transport.sendMail(emailMsg)
+    await transport.sendMail(emailMsg)
     res.render("contact", {
         message: "Mensaje enviado",
     })
