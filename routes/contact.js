@@ -1,5 +1,5 @@
 const express = require("express");
-const { validationResult } = require("express-validator");
+const {body, validationResult } = require("express-validator");
 const router = express.Router();
 const nodemailer = require("nodemailer")
 router.get("/", (req, res) => {
@@ -10,43 +10,43 @@ router.get("/", (req, res) => {
 router.post("/",
 
 
-//--Creo un middleware--
-[
-    body("email", "Debe ingresar un email").exists().isEmail(),
-    body("message", "Debe escribir algo").isLength({ min: 1, max: 500 }),
-]
+    //--Creo un middleware--
+    [
+        body("email", "Debe ingresar un email").exists().isEmail(),
+        body("message", "Debe escribir algo").exists().isLength({ min: 1, max: 500 }),
+    ]
 
-//--fin del middleware--
+    //--fin del middleware--
 
 
 
-,async (req, res) =>{
+    , async (req, res) => {
 
-   const error = validationResult(req)
-   if (!error.isEmpty()) {
-       const arrayAlert = error.array()
-       res.render ("contact", {arrayAlert})
-   }
+        const error = validationResult(req)
+        if (!error.isEmpty()) {
+            const arrayAlert = error.array()
+            res.render("contact", {arrayAlert})
+        } else {
 
-    const emailMsg = {
-        to: "atencion@ejemplo.com",
-        from: req.body.email,
-        subject: "Mensaje importante",
-        html: `${req.body.email} envio el siguiente mensaje ${req.body.message}`,
-    }
-    const transport =  nodemailer.createTransport({
-        host: process.env.HOST,
-        port: process.env.PORT,
-        auth:{
-        user: process.env.USER,
-        pass: process.env.PASS,
-    }
+        const emailMsg = {
+            to: "atencion@ejemplo.com",
+            from: req.body.email,
+            subject: "Mensaje importante",
+            html: `${req.body.email} envio el siguiente mensaje ${req.body.message}`,
+        }
+        const transport = nodemailer.createTransport({
+            host: process.env.HOST,
+            port: process.env.PORT,
+            auth: {
+                user: process.env.USER,
+                pass: process.env.PASS,
+            }
+        })
+        await transport.sendMail(emailMsg)
+        res.render("contact", {
+            message: "Mensaje recibido",
+        })}
     })
-    await transport.sendMail(emailMsg)
-    res.render("contact", {
-        message: "Mensaje enviado",
-    })
-})
 
 
 
