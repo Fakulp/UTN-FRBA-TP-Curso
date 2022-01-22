@@ -1,5 +1,4 @@
 const express = require("express");
-const async = require("hbs/lib/async");
 const router = express.Router();
 const nodemailer = require("nodemailer")
 router.get("/", (req, res) => {
