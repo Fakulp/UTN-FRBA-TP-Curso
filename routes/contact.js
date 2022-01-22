@@ -1,4 +1,5 @@
 const express = require("express");
+const { validationResult } = require("express-validator");
 const router = express.Router();
 const nodemailer = require("nodemailer")
 router.get("/", (req, res) => {
@@ -6,7 +7,26 @@ router.get("/", (req, res) => {
 })
 
 
-router.post("/", async (req, res) =>{
+router.post("/",
+
+
+//--Creo un middleware--
+[
+    body("email", "Debe ingresar un email").exists().isEmail(),
+    body("message", "Debe escribir algo").isLength({ min: 1, max: 500 }),
+]
+
+//--fin del middleware--
+
+
+
+,async (req, res) =>{
+
+   const error = validationResult(req)
+   if (!error.isEmpty()) {
+       const arrayAlert = error.array()
+       res.render ("contact", {arrayAlert})
+   }
 
     const emailMsg = {
         to: "atencion@ejemplo.com",

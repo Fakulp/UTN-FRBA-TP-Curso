@@ -2,6 +2,9 @@
 
   <div class="row">
     <form method="POST" class="text-white container col-6 bg-dark py-4 col-11 col-md-8 col-lg-6 mt-5">
+      {{#each arrayAlert}}
+      <p>{{msg}}</p>
+      {{/each}}
       <div class="form-group mt-3 mb-5">
         <label for="email">Email</label>
         <input
