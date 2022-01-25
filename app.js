@@ -13,6 +13,21 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, "public")))
 //-- express--
 
+
+
+
+
+
+
+//-------HBS--- 
+
+app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "views"));
+
+hbs.registerPartials(path.join(__dirname, "views/partials"));
+//------HBS----
+
+
 // --express session--
 app.use(expSession ({
     secret: "keyboard",
@@ -29,22 +44,15 @@ const auth = async (req, res, next) =>{
     }
 }
 
+
+
+//VARIABLE LOCAL--
+const isLog = (req, res, next) =>{
+app.locals.email = req.session.email
+next()
+}
+//--VARIABLE LOCAL--
   //--express session--
-
-
-
-
-
-//-------HBS--- 
-
-app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "views"));
-
-hbs.registerPartials(path.join(__dirname, "views/partials"));
-//------HBS----
-
-
-
 
 //---DECLARO RUTAS---
 const routeIndex = require("./routes/index");
@@ -55,7 +63,7 @@ const routeContacts = require("./routes/contact");
 
 
 
-app.use("/", routeIndex);
+app.use("/",isLog, routeIndex);
 app.use("/login", routeLogin)
 app.use ("/panel", auth , routePanel)
 app.use ("/contact", routeContacts)
