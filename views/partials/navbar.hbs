@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">AUTOS</a>
+    <a class="navbar-brand" href="/">INICIO</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -14,18 +14,25 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        {{#if isLog}}
+         {{#if isLog}}
+
         <li class="nav-item">
-          <a class="nav-link" href="login/logout">Cerrar sesion</a>
+        <a class="nav-link" href="login/logout">Cerrar sesion</a>
         </li>
-        {{else}}
-             <li class="nav-item">
-          <a class="nav-link" href="login">Iniciar sesion</a>
-        </li>
-         {{/if}}
         <li class="nav-item">
-          <a class="nav-link" href="#">Registrarse</a>
-        </li>
+        <a class="nav-link" href="panel">Panel</a>
+       </li>
+      
+       {{else}}
+     
+      <li class="nav-item">
+      <a class="nav-link" href="login">Iniciar sesion</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="#">Registrarse</a>
+      </li>
+     {{/if}}
+       
         <li class="nav-item">
           <a class="nav-link" href="contact">Contactanos</a>
         </li>

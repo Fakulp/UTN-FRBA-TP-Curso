@@ -9,13 +9,19 @@ require("dotenv").config()
 
 //--express--
 
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, "public")))
+
+
+
+
+//VARIABLE LOCAL--
+const isLog = (req, res, next) =>{
+  app.locals.email = req.session.email
+  next()
+  }
+  //--VARIABLE LOCAL--
 //-- express--
-
-
-
-
 
 
 
@@ -46,12 +52,7 @@ const auth = async (req, res, next) =>{
 
 
 
-//VARIABLE LOCAL--
-const isLog = (req, res, next) =>{
-app.locals.email = req.session.email
-next()
-}
-//--VARIABLE LOCAL--
+
   //--express session--
 
 //---DECLARO RUTAS---
