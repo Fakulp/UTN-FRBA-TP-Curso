@@ -15,21 +15,20 @@ app.use(express.static(path.join(__dirname, "public")))
 
 
 
-//VARIABLE LOCAL--
+//VARIABLE LOCAL--//
 const isLog = (req, res, next) =>{
   app.locals.email = req.session.email
   next()
   }
-  //--VARIABLE LOCAL--
+  //--VARIABLE LOCAL--//
+
 //-- express--
 
 
 
 //-------HBS--- 
-
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
-
 hbs.registerPartials(path.join(__dirname, "views/partials"));
 //------HBS----
 
@@ -49,10 +48,6 @@ const auth = async (req, res, next) =>{
         res.render("login")
     }
 }
-
-
-
-
   //--express session--
 
 //---DECLARO RUTAS---
@@ -60,8 +55,6 @@ const routeIndex = require("./routes/index");
 const routeLogin = require("./routes/login")
 const routePanel = require("./routes/panel");
 const routeContacts = require("./routes/contact");
-
-
 
 
 app.use("/",isLog, routeIndex);
