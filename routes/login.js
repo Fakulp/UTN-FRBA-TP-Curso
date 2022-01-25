@@ -10,9 +10,11 @@ router.get("/", (req, res) => {
 router.post("/", async (req, res) =>{
 const {email, contraseña} = req.body
 const data = await userModel.getUser (email, contraseña)
-console.log(data)
 if (data !=undefined) {
   res.render("panel")
+} else {
+  const message = "Usuario/Contraseña incorrectas"
+  res.render ("login", {message})
 }
 })
 

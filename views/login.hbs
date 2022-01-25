@@ -24,10 +24,18 @@
       id="exampleInputPassword1"
     />
   </div>
+ 
+ {{#if message}}<div class="alert alert-danger d-flex align-items-center text-black" role="alert">{{message}}</div>{{/if}}
+
+
  <div class="text-center">
+
   <button type="submit" class="btn btn-light justify-content-center">Enviar</button>
  </div>
+
+
 </form>
+
 </div>
 </div>
 {{!-- </body> --}}
