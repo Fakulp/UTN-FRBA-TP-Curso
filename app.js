@@ -1,14 +1,39 @@
-const express = require("express");
-const path = require("path");
-const hbs = require("hbs");
-const PORT = 3005;
-require("dotenv").config();
+const express = require("express")
+const app = express()
+const path = require("path")
+const hbs = require("hbs")
+const PORT = 3005
+const expSession = require("express-session")
+require("dotenv").config()
 
-const app = express();
+
+//--express--
+
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, "public")))
+//-- express--
+
+// --express session--
+app.use(expSession ({
+    secret: "keyboard",
+    resave: false,
+    saveUninitialized: true,
+  })
+  )
+
+const auth = async (req, res, next) =>{
+    if (req.session.email) {
+        next()
+    } else {
+        res.render("login")
+    }
+}
+
+  //--express session--
 
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
+
+
 
 //-------HBS--- 
 
@@ -28,9 +53,11 @@ const routePanel = require("./routes/panel");
 const routeContacts = require("./routes/contact");
 
 
+
+
 app.use("/", routeIndex);
 app.use("/login", routeLogin)
-app.use ("/panel", routePanel)
+app.use ("/panel", auth , routePanel)
 app.use ("/contact", routeContacts)
 //--- DECLARO RUTAS---
 
