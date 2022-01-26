@@ -17,7 +17,13 @@ app.use(express.static(path.join(__dirname, "public")))
 
 //VARIABLE LOCAL--//
 const isLog = (req, res, next) =>{
-  app.locals.email = req.session.email
+  if(req.session.email){
+// console.log(`User logged: %s`, req.session.email)
+res.locals.hasUser = true
+} else{
+  // console.log(`Guest`)
+  res.locals.hasUser = false
+}
   next()
   }
   //--VARIABLE LOCAL--//
