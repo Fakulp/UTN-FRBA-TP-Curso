@@ -5,17 +5,17 @@
 
     <table class="table table-hover text-white">
     
-      </tr>
+      
       <thead>
 
-  <tr class="text-center">
+  <tr class="text-center table-secondary">
         <th colspan="6">
-          <a href="/agregar"><button
+          <a href="agregar"><button
               type="button"
-              class="btn btn-light"
+              class="btn btn-dark"
             >Agregar</button></a>
         </th>
-
+  </tr>
 
         <tr class="table-secondary">
           <th scope="col">ID</th>
@@ -23,7 +23,7 @@
           <th scope="col">Año</th>
           <th scope="col">Modelo</th>
           <th scope="col">Km</th>
-          <th scope="col">Acciones</th>
+          <th class="text-center" scope="col">Acciones</th>
         </tr>
       </thead>
 
@@ -35,7 +35,7 @@
             <td>{{Anio}}</td>
             <td>{{Modelo}}</td>
             <td>{{Km}}</td>
-            <td>
+            <td class="text-center">
              <a href="/editar"> <button type="button" class="btn btn-dark">Editar</button></a>
              <a href="/editar"> <button type="button" class="btn btn-dark">Borrar</button></a>
             </td>
