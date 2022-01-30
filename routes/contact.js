@@ -27,7 +27,6 @@ router.post("/",
                 email: req.body.email, 
                 message: req.body.message
             }
-            console.log(arrayAlert)
             res.render("contact", {formData, arrayAlert})
         } else {
 
