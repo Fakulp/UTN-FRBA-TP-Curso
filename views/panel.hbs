@@ -1,15 +1,18 @@
+
+  
 <div class="container text-white">
     <h1>Bienvenido {{email}}</h1>
 
 
 
+
+ 
 <div class="row">
 
 <table class="table table-hover table-bordered text-white  ">
-  
  <thead>
     <tr class="table-secondary">
-      <th scope="col">#</th>
+      <th scope="col">ID</th>
       <th scope="col">Marca</th>
       <th scope="col">Año</th>
       <th scope="col">Modelo</th>
@@ -17,29 +20,18 @@
       <th scope="col">Foto</th>
     </tr>
   </thead>
+ 
+  {{#each cars}}
   <tbody>
     <tr class="table-secondary">
-      <th scope="row">1</th>
-      <td>Ford</td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr class="table-secondary">
-      <th scope="row">2</th>
-      <td>Renault</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>@mdo</td>
-    </tr>
-    <tr class="table-secondary">
-      <th scope="row">3</th>
-      <td >BMW</td>
-      <td>@twitter</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
+      <th scope="row">{{ID}}</th>
+      <td>{{Marca}}</td>
+      <td>{{Anio}}</td>
+      <td>{{Modelo}}</td>
+      <td>{{Km}}</td>
     </tr>
   </tbody>
+   {{/each}}
 </table>
 </div>
 </div>
