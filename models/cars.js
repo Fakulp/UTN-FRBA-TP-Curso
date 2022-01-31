@@ -8,4 +8,17 @@ const row = await pool.query(query)
 return row
 }
 
-module.exports = { getCars }
+const getMarcas = ()=>{
+    return [
+        {nombre: "Chevrolet"},
+        {nombre: "Ford"},
+        {nombre: "Renault"},
+        {nombre: "BMW"},
+        {nombre: "Fiat"}
+    ]
+}
+
+
+
+module.exports = { getCars, getMarcas }
+

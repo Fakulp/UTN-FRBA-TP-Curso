@@ -9,11 +9,11 @@ const data = await productModel.getCars()
 
 
 router.get("/autos/agregar", (req, res) => {
-  res.render("agregar")
+  const marcas = productModel.getMarcas()
+  res.render("autos_agregar", {marcas})
 })
 
-router.post("/autos/agregar", (req, res) =>{
-})
+router.post("/autos/agregar", (req, res) =>{})
 
 
 router.get("/autos/:id/editar" , (req, res)=>{})
