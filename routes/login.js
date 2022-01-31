@@ -19,7 +19,7 @@ const {email, contraseña} = req.body
 const data = await userModel.getUser (email, contraseña)
 if (data !=undefined) {
   req.session.email = email
-  res.redirect("panel")
+  res.redirect("/panel/autos")
 } else {
   const message = "Usuario/Contraseña incorrectas"
   res.render ("login", {message})

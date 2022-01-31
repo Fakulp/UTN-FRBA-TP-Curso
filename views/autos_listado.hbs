@@ -1,3 +1,5 @@
+
+
 <div class="container text-white">
   <h1>Bienvenido {{email}}</h1>
 
@@ -10,10 +12,10 @@
 
   <tr class="text-center table-secondary">
         <th colspan="6">
-          <a href="agregar"><button
-              type="button"
+          <a 
               class="btn btn-dark"
-            >Agregar</button></a>
+              href="/panel/autos/agregar">
+            Agregar</a>
         </th>
   </tr>
 
@@ -36,8 +38,8 @@
             <td>{{Modelo}}</td>
             <td>{{Km}}</td>
             <td class="text-center">
-             <a href="/editar"> <button type="button" class="btn btn-dark">Editar</button></a>
-             <a href="/editar"> <button type="button" class="btn btn-dark">Borrar</button></a>
+             <a href="/panel/autos/{{ID}}/editar" class="btn btn-dark"> Editar</a>
+             <a href="/panel/autos/{{ID}}/eliminar" class="btn btn-dark"> Borrar</a>
             </td>
           </tr>
         </tbody>

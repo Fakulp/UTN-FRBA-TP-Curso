@@ -61,13 +61,11 @@ const routeIndex = require("./routes/index");
 const routeLogin = require("./routes/login")
 const routePanel = require("./routes/panel");
 const routeContacts = require("./routes/contact");
-const routeAgregar = require("./routes/agregar")
 
 
 app.use("/",isLog, routeIndex);
 app.use("/login", routeLogin)
 app.use ("/panel", auth , routePanel)
-app.use ("/agregar", auth , routeAgregar)
 app.use ("/contact", routeContacts)
 //--- DECLARO RUTAS---
 
