@@ -1,34 +1,45 @@
-<form class="container justify-content-center"  method="post">
+<form class="container justify-content-center" method="post">
   <div class="form-row text-white justify-content-center">
-   <div class="form-group mb-3 mt-5 col-3 ">
-    <label for="Marcas">Marca</label>
-    <select class="form-control" id="Marcas">
-      {{#each marcas}}
-      <option value="{{nombre}}">{{nombre}}</option>
-      {{/each}}
-    </select>
-  </div>
-  <div class="form-group mb-3 mt-5 col-3 ">
-    <label for="Año">Año</label>
-    <input type="text" class="form-control" id="año" name="año">
-  </div>
-  <div class="form-row">
     <div class="form-group mb-3 mt-5 col-3 ">
-      <label for="Modelo">Modelo</label>
-      <input type="text" class="form-control" id="modelo" name="modelo">
+      <label for="marcas">Marca</label>
+      <select class="form-control" id="marcas">
+        {{#each marcas}}
+        <option value="{{nombre}}">{{nombre}}</option>
+        {{/each}}
+      </select>
     </div>
-  
+
+
+    <div class="form-group mb-3 mt-5 col-3 ">
+      <label for="Año">Año</label>
+      <input type="text" class="form-control" id="año" name="año" {{#if formData.anio}} 
+        value="{{formData.anio}}" {{/if}}>
+    </div>
+
+
+
     <div class="form-row">
-    <div class="form-group mb-3 mt-5 col-3 ">
-      <label for="Km">Km</label>
-      <input type="text" class="form-control" id="km" name="km">
-    </div>
-  </div>
+      <div class="form-group mb-3 mt-5 col-3 ">
+        <label for="Modelo">Modelo</label>
+        <input type="text" class="form-control" id="modelo" name="modelo" {{#if formData.modelo}}
+          value="{{formData.modelo}}" {{/if}}>
+      </div>
 
-  <div class="form-group mt-5 mb-3 col-3 ">
-    <label for="file">Subir archivo</label>
-    <input type="file" class="form-control-file" id="file" name="file">
-  </div>
+      <div class="form-row">
+        <div class="form-group mb-3 mt-5 col-3 ">
+          <label for="Km">Km</label>
+          <input type="text" class="form-control" id="km" name="km" {{#if formData.km}} value="{{formData.km}}"{{/if}}>
+        </div>
+      </div>
 
-  <button type="submit" class="btn btn-dark mb-3 mt-5 col-3" value="enviar">Agregar</button>
+      <div class="form-group mt-5 mb-3 col-3 ">
+        <label for="file">Subir archivo</label>
+        <input type="file" class="form-control-file" id="file" name="file">
+      </div>
+  {{#each failAlert}}
+<div class="alert alert-danger mt-5 mb-3 col-3" role="alert">
+  {{msg}}
+</div>
+  {{/each}}
+      <button type="submit" class="btn btn-dark mb-3 mt-5 col-3" value="enviar">Agregar</button>
 </form>
