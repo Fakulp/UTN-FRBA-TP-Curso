@@ -1,3 +1,5 @@
+
+
 const pool = require("../db")
 
 
@@ -18,7 +20,10 @@ const getMarcas = ()=>{
     ]
 }
 
-
-
-module.exports = { getCars, getMarcas }
+const addCars = async (Marca, Anio, Modelo, Km) =>{
+    const query ="insert into cars (Marca , Anio , Modelo , Km ) value (?,?,?,?)"
+    const row = await Pool.query(query, [Marca, Anio, Modelo, Km]) 
+    return row
+}
+module.exports = { getCars, getMarcas, addCars }
 

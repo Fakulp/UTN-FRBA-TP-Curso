@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const productModel = require("../models/cars")
 const {body, validationResult} = require("express-validator");
-const { is } = require("express/lib/request");
 
 router.get("/autos", async (req, res) => {
 const data = await productModel.getCars()
@@ -15,13 +14,19 @@ router.get("/autos/agregar", (req, res) => {
   res.render("autos_agregar", {marcas})
 })
 
-router.post("/autos/agregar",  [
+router.post("/autos/agregar",  
+//---middleware---
+
+[
   
   body("año", "Debe ser un año").exists().isLength({ min: 1, max: 20 }).isNumeric(),
   body("modelo", "Debe escribir algo").exists().isLength({ min: 1, max: 50 }),
   body("km", "Debe escribir un kilometraje").exists().isLength({ min: 1, max: 500 }).isNumeric(),
-] ,
-(req, res) =>{
+] 
+
+//--fin del middleware--
+, 
+async (req, res) =>{
   const marcas = productModel.getMarcas()
   const fail = validationResult(req)
   if (!fail.isEmpty()) {
@@ -31,9 +36,18 @@ router.post("/autos/agregar",  [
       modelo: req.body.modelo,
       km: req.body.km,
     }
+
 res.render("autos_agregar", {failAlert, formData, marcas})
   } else{
-    res.redirect("/panel/autos")
+    // const {Marca, Anio, Modelo, Km} = req.body
+    // const newCars = {
+    //   Marca,
+    //   Anio,
+    //   Modelo,
+    //   Km,
+    // }
+    await productModel.addCars()
+    res.redirect("/panel/autos", {addCars})
   }
 })
 
