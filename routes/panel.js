@@ -10,45 +10,40 @@ const data = await productModel.getCars()
 
 
 router.get("/autos/agregar", (req, res) => {
-  const marcas = productModel.getMarcas()
-  res.render("autos_agregar", {marcas})
+  const marca = productModel.getMarcas()
+  res.render("autos_agregar", {marca})
 })
 
 router.post("/autos/agregar",  
 //---middleware---
 
 [
-  
-  body("año", "Debe ser un año").exists().isLength({ min: 1, max: 20 }).isNumeric(),
+  body("marca" ,"Debe elegir una marca").exists(),
+  body("anio", "Debe ser un año").exists().isNumeric(),
   body("modelo", "Debe escribir algo").exists().isLength({ min: 1, max: 50 }),
-  body("km", "Debe escribir un kilometraje").exists().isLength({ min: 1, max: 500 }).isNumeric(),
+  body("km", "Debe escribir un kilometraje").exists().isNumeric(),
 ] 
 
 //--fin del middleware--
 , 
 async (req, res) =>{
-  const marcas = productModel.getMarcas()
-  const fail = validationResult(req)
-  if (!fail.isEmpty()) {
+ const fail = validationResult(req)
+  if (!fail.isEmpty()){
+    const marca = productModel.getMarcas()
     const failAlert = fail.array()
     const formData = {
-      año: req.body.anio,
+      marca: req.body.marca,
+      anio: req.body.anio,
       modelo: req.body.modelo,
       km: req.body.km,
     }
-
-res.render("autos_agregar", {failAlert, formData, marcas})
-  } else{
-    // const {Marca, Anio, Modelo, Km} = req.body
-    // const newCars = {
-    //   Marca,
-    //   Anio,
-    //   Modelo,
-    //   Km,
-    // }
-    await productModel.addCars()
-    res.redirect("/panel/autos", {addCars})
-  }
+ res.render("autos_agregar", {failAlert, formData, marca})
+  } else {
+    const {marca, anio, modelo, km} = req.body
+    console.log(req.body)
+   await productModel.addCars(marca,anio, modelo, km)
+    res.redirect("/panel/autos")
+ }
 })
 
 
@@ -60,3 +55,8 @@ router.get("/autos/:id/eliminar" , (req, res)=>{})
 
 
 module.exports = router;
+
+
+
+
+

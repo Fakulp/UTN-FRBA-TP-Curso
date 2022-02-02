@@ -1,9 +1,9 @@
 <form class="container justify-content-center" method="post">
   <div class="form-row text-white justify-content-center">
     <div class="form-group mb-3 mt-5 col-3 ">
-      <label for="marcas">Marca</label>
-      <select class="form-control" id="marcas">
-        {{#each marcas}}
+      <label for="Marca">Marca</label>
+      <select class="form-control" id="Marca" name="marca">
+        {{#each marca}}
         <option value="{{nombre}}">{{nombre}}</option>
         {{/each}}
       </select>
@@ -11,8 +11,8 @@
 
 
     <div class="form-group mb-3 mt-5 col-3 ">
-      <label for="Año">Año</label>
-      <input type="text" class="form-control" id="año" name="año" {{#if formData.anio}} 
+      <label for="Anio">Año</label>
+      <input type="text" class="form-control" id="anio" name="anio" {{#if formData.anio}} 
         value="{{formData.anio}}" {{/if}}>
     </div>
 

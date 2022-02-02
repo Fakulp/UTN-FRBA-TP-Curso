@@ -1,0 +1,24 @@
+  const marcas = productModel.getMarcas()
+  const fail = validationResult(req)
+  if (!fail.isEmpty()) {
+    const failAlert = fail.array()
+    const formData = {
+      marca: req.body.marca,
+      año: req.body.anio,
+      modelo: req.body.modelo,
+      km: req.body.km,
+    }
+
+  } else{
+    const {addCars} = req.body
+    const newCars = {
+      Marca,
+      Anio,
+      Modelo,
+      Km,
+    }
+res.render("autos_agregar", {failAlert, formData, marcas})
+
+    await productModel.addCars()
+    res.redirect("/panel/autos",{addCars})
+  }
