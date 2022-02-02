@@ -51,7 +51,10 @@ router.get("/autos/:id/editar" , (req, res)=>{})
 router.post("/autos/:id/editar", (req, res) =>{})
 
 
-router.get("/autos/:id/eliminar" , (req, res)=>{})
+router.get("/autos/:id/eliminar" , async (req, res)=>{
+   await productModel.deleteCars(req.params.id) 
+   res.redirect("/panel/autos")
+})
 
 
 module.exports = router;
