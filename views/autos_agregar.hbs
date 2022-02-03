@@ -4,7 +4,9 @@
       <label for="Marca">Marca</label>
       <select class="form-control" id="Marca" name="marca">
         {{#each marca}}
-        <option value="{{nombre}}">{{nombre}}</option>
+        {{#if formData.marcanombre}} <option selected value="{{nombre}}">{{nombre}}</option>
+        {{else}}<option value="{{nombre}}">{{nombre}}</option>
+        {{/if}}
         {{/each}}
       </select>
     </div>
@@ -42,4 +44,5 @@
 </div>
   {{/each}}
       <button type="submit" class="btn btn-dark mb-3 mt-5 col-3" value="enviar">Agregar</button>
+      <a href="/panel/autos" class="btn btn-danger mb-3 mt-5 col-3" value="cancelar">Cancelar</a>
 </form>

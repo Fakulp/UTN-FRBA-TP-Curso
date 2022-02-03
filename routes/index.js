@@ -1,9 +1,10 @@
 const express = require("express");
+const productModel = require("../models/cars")
 const router = express.Router();
-router.get("/", (req, res) => {
-    res.render("index")
+router.get("/", async (req, res) => {
+    const data = await productModel.getCars()
+    res.render("index",{ cars: data} );
 })
-
 
 
 module.exports = router;

@@ -14,7 +14,11 @@ const deleteCars = async(id) =>{
     return row
 }
 
-
+const getCar = async(id) =>{
+    const query ="select * from cars where id = ?"
+    const row = await pool.query(query, [id])
+    return row
+}
 
 
 
@@ -32,11 +36,8 @@ const getMarcas = ()=>{
 const addCars = async (Marca, Anio, Modelo, Km) =>{
     const query ="insert into cars (Marca , Anio , Modelo , Km ) value (?)"
     const row = await pool.query(query, [[Marca, Anio, Modelo, Km]]) 
-    console.log(Marca)
-    console.log(Anio)
-    console.log(Modelo)
-    console.log(Km)
+ 
     return row
 }
-module.exports = { getCars, getMarcas, addCars, deleteCars }
+module.exports = { getCars, getMarcas, addCars, deleteCars, getCar }
 
