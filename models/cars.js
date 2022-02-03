@@ -20,7 +20,11 @@ const getCar = async(id) =>{
     return row
 }
 
-
+const updateCar = async (marca,anio,modelo,km,id) =>{
+    const query = "UPDATE cars SET Marca = ?, Anio = ?, Modelo = ?, Km = ? WHERE id = ?"
+    const row = await pool.query(query,[marca,anio,modelo,km,id])
+    return row
+}
 
 
 const getMarcas = ()=>{
@@ -36,8 +40,7 @@ const getMarcas = ()=>{
 const addCars = async (Marca, Anio, Modelo, Km) =>{
     const query ="insert into cars (Marca , Anio , Modelo , Km ) value (?)"
     const row = await pool.query(query, [[Marca, Anio, Modelo, Km]]) 
- 
     return row
 }
-module.exports = { getCars, getMarcas, addCars, deleteCars, getCar }
+module.exports = { getCars, getMarcas, addCars, deleteCars, getCar, updateCar }
 

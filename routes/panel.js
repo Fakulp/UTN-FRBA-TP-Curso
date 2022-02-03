@@ -23,7 +23,7 @@ router.post("/autos/agregar",
   //---middleware---
   body("marca" ,"Debe elegir una marca").exists(),
   body("anio", "Debe ser un año").exists().isNumeric(),
-  body("modelo", "Debe escribir algo").exists().isLength({ min: 1, max: 50 }),
+  body("modelo", "Debe escribir un modelo").exists().isLength({ min: 1, max: 50 }),
   body("km", "Debe escribir un kilometraje").exists().isNumeric(),
   //--fin del middleware--
 ] , async (req, res) =>{
@@ -58,11 +58,35 @@ router.get("/autos/:id/editar" , async(req, res)=>{
     modelo: row[0].Modelo,
     km: row[0].Km,
   }
-  console.log(row)
   res.render("autos_agregar" , {formData, marca})
 })
-router.post("/autos/:id/editar", (req, res) =>{
-  
+
+
+router.post("/autos/:id/editar",
+[
+  //---middleware---
+  body("marca" ,"Debe elegir una marca").exists(),
+  body("anio", "Debe ser un año").exists().isNumeric(),
+  body("modelo", "Debe escribir un modelo").exists().isLength({ min: 1, max: 50 }),
+  body("km", "Debe escribir un kilometraje").exists().isNumeric(),
+  //--fin del middleware--
+], async (req, res) =>{
+  const fail = validationResult(req)
+  if (!fail.isEmpty()){
+    const marca = productModel.getMarcas()
+    const failAlert = fail.array()
+    const formData = {
+      marca: req.body.marca,
+      anio: req.body.anio,
+      modelo: req.body.modelo,
+      km: req.body.km,
+    }
+    res.render("autos_agregar" , {failAlert ,formData, marca})
+  } else{
+    const {marca, anio, modelo, km} = req.body
+    await productModel.updateCar(marca, anio, modelo, km, req.params.id)
+    res.redirect("/panel/autos")
+  }
 })
 //------editar--------
 
