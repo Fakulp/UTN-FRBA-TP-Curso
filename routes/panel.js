@@ -49,6 +49,7 @@ router.post("/autos/agregar",  commonMiddleware , async (req, res) =>{
     const {marca, anio, modelo, km} = req.body
   
    await productModel.addCars(marca,anio, modelo, km)
+    req.session.exito = "Se agrego el auto correctamente"
     res.redirect("/panel/autos")
  }
 })
@@ -88,6 +89,7 @@ router.post("/autos/:id/editar",commonMiddleware, async (req, res) =>{
   } else{
     const {marca, anio, modelo, km} = req.body
     await productModel.updateCar(marca, anio, modelo, km, req.params.id)
+    req.session.exito = "Se modifico el auto correctamente"
     res.redirect("/panel/autos")
   }
 })
