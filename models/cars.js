@@ -2,9 +2,9 @@
 const pool = require("../db")
 
 const getCars = async () => {
-const query = `select * from cars order by id desc`
-const row = await pool.query(query)
-return row
+    const query = `select * from cars order by id desc`
+    const row = await pool.query(query)
+    return row
 }
 
 
