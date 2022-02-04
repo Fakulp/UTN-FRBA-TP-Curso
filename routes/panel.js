@@ -11,6 +11,10 @@ const commonMiddleware = [
   body("modelo", "Debe escribir un modelo").exists().isLength({ min: 1, max: 50 }),
   body("km", "Debe escribir un kilometraje").exists().isNumeric(),
 ]
+
+
+
+
 //--fin del middleware--
 
 router.get("/autos", async (req, res) => {
@@ -52,14 +56,18 @@ router.post("/autos/agregar",  commonMiddleware , async (req, res) =>{
 router.get("/autos/:id/editar" , async(req, res)=>{
   const marca = productModel.getMarcas()
   const row = await productModel.getCar(req.params.id)
+  if (row == null) {
+    res.redirect("/panel/autos")
+  } else {
   const formData ={
-    id: row[0].ID,
-    marca: row[0].Marca,
-    anio: row[0].Anio,
-    modelo: row[0].Modelo,
-    km: row[0].Km,
+    id: row.ID,
+    marca: row.Marca,
+    anio: row.Anio,
+    modelo: row.Modelo,
+    km: row.Km,
   }
   res.render("autos_agregar" , {formData, marca})
+}
 })
 
 

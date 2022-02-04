@@ -17,8 +17,12 @@ const deleteCars = async(id) =>{
 const getCar = async(id) =>{
     const query ="select * from cars where id = ?"
     const row = await pool.query(query, [id])
-    return row
-}
+    if(row.length == 0) {
+        return null
+    } else {
+        return row[0] 
+    }
+} 
 
 const updateCar = async (marca,anio,modelo,km,id) =>{
     const query = "UPDATE cars SET Marca = ?, Anio = ?, Modelo = ?, Km = ? WHERE id = ?"
