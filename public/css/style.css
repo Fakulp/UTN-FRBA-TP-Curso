@@ -10,3 +10,10 @@ body {
 
 }
 
+ul.no-pl {
+    padding-left: 0 !important;
+}
+
+/* .transp{
+    background: rgba(255, 255, 255, 0.384) !important;
+} */

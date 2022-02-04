@@ -57,7 +57,7 @@ const auth = async (req, res, next) =>{
     if (req.session.email) {
         next()
     } else {
-        res.render("login")
+        res.redirect("/login")
     }
 }
   //--express session--
@@ -67,7 +67,7 @@ const routeIndex = require("./routes/index");
 const routeLogin = require("./routes/login")
 const routePanel = require("./routes/panel");
 const routeContacts = require("./routes/contact");
-const { handlebars } = require("hbs")
+
 
 
 app.use("/",isLog, routeIndex);
