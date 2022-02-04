@@ -12,14 +12,16 @@ const commonMiddleware = [
   body("km", "Debe escribir un kilometraje").exists().isNumeric(),
 ]
 
-
-
-
 //--fin del middleware--
 
 router.get("/autos", async (req, res) => {
 const data = await productModel.getCars()
-  res.render("autos_listado",{email: req.session.email ,cars: data} );
+let exito = false
+  if(req.session.exito){
+    exito = req.session.exito
+    delete req.session.exito
+    }
+  res.render("autos_listado",{email: req.session.email ,cars: data , exito} );
 });
 
 
@@ -97,7 +99,9 @@ router.post("/autos/:id/editar",commonMiddleware, async (req, res) =>{
 
 router.get("/autos/:id/eliminar" , async (req, res)=>{
    await productModel.deleteCars(req.params.id) 
+   req.session.exito = "Se borro el auto correctamente"
    res.redirect("/panel/autos")
+
 })
 //----delete----
 
