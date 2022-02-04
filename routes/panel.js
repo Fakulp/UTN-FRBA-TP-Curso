@@ -3,6 +3,15 @@ const router = express.Router();
 const productModel = require("../models/cars")
 const {body, validationResult} = require("express-validator");
 
+ //---middleware ---
+const commonMiddleware = [
+ 
+  body("marca" ,"Debe elegir una marca").exists(),
+  body("anio", "Debe ser un año").exists().isNumeric(),
+  body("modelo", "Debe escribir un modelo").exists().isLength({ min: 1, max: 50 }),
+  body("km", "Debe escribir un kilometraje").exists().isNumeric(),
+]
+//--fin del middleware--
 
 router.get("/autos", async (req, res) => {
 const data = await productModel.getCars()
@@ -18,15 +27,7 @@ router.get("/autos/agregar", (req, res) => {
 
 
 //-------agregar-------
-router.post("/autos/agregar",  
-[
-  //---middleware---
-  body("marca" ,"Debe elegir una marca").exists(),
-  body("anio", "Debe ser un año").exists().isNumeric(),
-  body("modelo", "Debe escribir un modelo").exists().isLength({ min: 1, max: 50 }),
-  body("km", "Debe escribir un kilometraje").exists().isNumeric(),
-  //--fin del middleware--
-] , async (req, res) =>{
+router.post("/autos/agregar",  commonMiddleware , async (req, res) =>{
  const fail = validationResult(req)
   if (!fail.isEmpty()){
     const marca = productModel.getMarcas()
@@ -62,15 +63,7 @@ router.get("/autos/:id/editar" , async(req, res)=>{
 })
 
 
-router.post("/autos/:id/editar",
-[
-  //---middleware---
-  body("marca" ,"Debe elegir una marca").exists(),
-  body("anio", "Debe ser un año").exists().isNumeric(),
-  body("modelo", "Debe escribir un modelo").exists().isLength({ min: 1, max: 50 }),
-  body("km", "Debe escribir un kilometraje").exists().isNumeric(),
-  //--fin del middleware--
-], async (req, res) =>{
+router.post("/autos/:id/editar",commonMiddleware, async (req, res) =>{
   const fail = validationResult(req)
   if (!fail.isEmpty()){
     const marca = productModel.getMarcas()
@@ -99,6 +92,13 @@ router.get("/autos/:id/eliminar" , async (req, res)=>{
    res.redirect("/panel/autos")
 })
 //----delete----
+
+
+
+
+
+
+
 
 module.exports = router;
 
