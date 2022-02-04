@@ -1,12 +1,11 @@
 <form class="container justify-content-center" method="post">
+  <input type="hidden" id="marcaSeleccionada" {{#if formData.marca}}value="{{formData.marca}}" {{/if}}/>
   <div class="form-row text-white justify-content-center">
     <div class="form-group mb-3 mt-5 col-3 ">
       <label for="Marca">Marca</label>
       <select class="form-control" id="Marca" name="marca">
         {{#each marca}}
-        {{#if formData.marcanombre}} <option selected value="{{nombre}}">{{nombre}}</option>
-        {{else}}<option value="{{nombre}}">{{nombre}}</option>
-        {{/if}}
+         <option value="{{nombre}}">{{nombre}}</option>
         {{/each}}
       </select>
     </div>
@@ -46,3 +45,11 @@
       <button type="submit" class="btn btn-dark mb-3 mt-5 col-3" value="enviar">Agregar</button>
       <a href="/panel/autos" class="btn btn-danger mb-3 mt-5 col-3" value="cancelar">Cancelar</a>
 </form>
+
+<script type="text/javascript">
+let valor = document.getElementById("marcaSeleccionada").value;
+if (valor){
+  document.getElementById("Marca").value = valor
+}
+</script>
+
