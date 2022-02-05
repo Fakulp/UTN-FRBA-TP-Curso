@@ -1,4 +1,4 @@
-<form class="container justify-content-center" method="post">
+<form class="container justify-content-center" method="post" enctype="multipart/form-data">
   <input type="hidden" id="marcaSeleccionada" {{#if formData.marca}}value="{{formData.marca}}" {{/if}}/>
   <div class="form-row text-white justify-content-center">
     <div class="form-group mb-3 mt-5 col-3 ">
@@ -33,10 +33,10 @@
         </div>
       </div>
 
-      {{!-- <div class="form-group mt-5 mb-3 col-3 ">
-        <label for="file">Subir archivo</label>
-        <input type="file" class="form-control-file" id="file" name="file">
-      </div> --}}
+      <div class="form-group mt-5 mb-3 col-3 ">
+        <label for="Imagen">Subir archivo</label>
+        <input type="file" class="form-control-file" id="Imagen" name="Imagen">
+      </div>
   {{#each failAlert}}
 <div class="alert alert-danger mt-5 mb-3 col-3" role="alert">
   {{msg}}

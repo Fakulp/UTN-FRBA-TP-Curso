@@ -24,9 +24,9 @@ const getCar = async(id) =>{
     }
 } 
 
-const updateCar = async (marca,anio,modelo,km,id) =>{
-    const query = "UPDATE cars SET Marca = ?, Anio = ?, Modelo = ?, Km = ? WHERE id = ?"
-    const row = await pool.query(query,[marca,anio,modelo,km,id])
+const updateCar = async (marca,anio,modelo,km,imagen,id) =>{
+    const query = "UPDATE cars SET Marca = ?, Anio = ?, Modelo = ?, Km = ?, Imagen = ? WHERE id = ?"
+    const row = await pool.query(query,[marca,anio,modelo,km,imagen ,id])
     return row
 }
 
@@ -41,9 +41,9 @@ const getMarcas = ()=>{
     ]
 }
 
-const addCars = async (Marca, Anio, Modelo, Km) =>{
-    const query ="insert into cars (Marca , Anio , Modelo , Km ) value (?)"
-    const row = await pool.query(query, [[Marca, Anio, Modelo, Km]]) 
+const addCars = async (Marca, Anio, Modelo, Km, Imagen) =>{
+    const query ="insert into cars (Marca , Anio , Modelo , Km, Imagen ) value (?)"
+    const row = await pool.query(query, [[Marca, Anio, Modelo, Km, Imagen]]) 
     return row
 }
 module.exports = { getCars, getMarcas, addCars, deleteCars, getCar, updateCar }

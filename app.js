@@ -3,15 +3,38 @@ const app = express()
 const path = require("path")
 const hbs = require("hbs")
 const PORT = 3005
-
+const fileupload = require("express-fileupload")
 const expSession = require("express-session")
 require("dotenv").config()
 
+
+
+
+
+//----fileupload----
+ app.use(fileupload({
+   useTempFiles: true,
+   tempFileDir: "/temp/"
+ }))
+
+//------fileupload
 
 //--express--
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, "public")))
+
+
+//-- express--
+
+
+
+//-------HBS--- 
+app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "views"));
+hbs.registerPartials(path.join(__dirname, "views/partials"));
+//------HBS----
+
 
 
 
@@ -28,16 +51,6 @@ res.locals.hasUser = true
   next()
   }
   //--VARIABLE LOCAL--//
-
-//-- express--
-
-
-
-//-------HBS--- 
-app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "views"));
-hbs.registerPartials(path.join(__dirname, "views/partials"));
-//------HBS----
 
 
 // --express session--

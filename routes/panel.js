@@ -2,6 +2,14 @@ const express = require("express");
 const router = express.Router();
 const productModel = require("../models/cars")
 const {body, validationResult} = require("express-validator");
+const cloudinary = require("cloudinary").v2
+const util = require ("util")
+
+const uploader = util.promisify(cloudinary.uploader.upload)
+
+
+
+
 
  //---middleware ---
 const commonMiddleware = [
@@ -15,13 +23,23 @@ const commonMiddleware = [
 //--fin del middleware--
 
 router.get("/autos", async (req, res) => {
-const data = await productModel.getCars()
-let exito = false
+ const data = await productModel.getCars()
+
+
+
+ const imgCar = data.map((row) => {
+  const img_URL = cloudinary.url(row.Imagen)
+  return  { ...row, img_URL }
+})
+
+
+  let exito = false
   if(req.session.exito){
     exito = req.session.exito
-    delete req.session.exito
+    delete  req.session.exito
     }
-  res.render("autos_listado",{email: req.session.email ,cars: data , exito} );
+   
+  res.render("autos_listado", {email: req.session.email ,cars: data , imgCar , exito} );
 });
 
 
@@ -34,6 +52,10 @@ router.get("/autos/agregar", (req, res) => {
 
 //-------agregar-------
 router.post("/autos/agregar",  commonMiddleware , async (req, res) =>{
+
+  let imagen = req.files.Imagen
+  const id_img = (await uploader(imagen.tempFilePath)).public_id
+
  const fail = validationResult(req)
   if (!fail.isEmpty()){
     const marca = productModel.getMarcas()
@@ -43,12 +65,14 @@ router.post("/autos/agregar",  commonMiddleware , async (req, res) =>{
       anio: req.body.anio,
       modelo: req.body.modelo,
       km: req.body.km,
+      imagen: id_img,
+      
     }
  res.render("autos_agregar", {failAlert, formData, marca})
   } else {
     const {marca, anio, modelo, km} = req.body
   
-   await productModel.addCars(marca,anio, modelo, km)
+   await productModel.addCars(marca,anio, modelo, km, id_img)
     req.session.exito = "Se agrego el auto correctamente"
     res.redirect("/panel/autos")
  }
@@ -75,6 +99,9 @@ router.get("/autos/:id/editar" , async(req, res)=>{
 
 
 router.post("/autos/:id/editar",commonMiddleware, async (req, res) =>{
+  let imagen = req.files.Imagen
+  const id_img = (await uploader(imagen.tempFilePath)).public_id
+
   const fail = validationResult(req)
   if (!fail.isEmpty()){
     const marca = productModel.getMarcas()
@@ -84,11 +111,12 @@ router.post("/autos/:id/editar",commonMiddleware, async (req, res) =>{
       anio: req.body.anio,
       modelo: req.body.modelo,
       km: req.body.km,
+      imagen: id_img,
     }
     res.render("autos_agregar" , {failAlert ,formData, marca})
   } else{
-    const {marca, anio, modelo, km} = req.body
-    await productModel.updateCar(marca, anio, modelo, km, req.params.id)
+    const {marca, anio, modelo, km, imagen} = req.body
+    await productModel.updateCar(marca, anio, modelo, km, imagen ,req.params.id)
     req.session.exito = "Se modifico el auto correctamente"
     res.redirect("/panel/autos")
   }
