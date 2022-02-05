@@ -3,7 +3,7 @@ const app = express()
 const path = require("path")
 const hbs = require("hbs")
 const PORT = 3005
-// const handlebarsHelpers = require("handlebars-helpers")("string")
+
 const expSession = require("express-session")
 require("dotenv").config()
 
@@ -34,11 +34,6 @@ res.locals.hasUser = true
 
 
 //-------HBS--- 
-
-
-
-// const helpers = handlebarsHelpers()
-// app.engine("handlebars", handlebars ({helpers}))
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 hbs.registerPartials(path.join(__dirname, "views/partials"));

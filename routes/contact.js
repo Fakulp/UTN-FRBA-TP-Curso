@@ -7,19 +7,16 @@ router.get("/", (req, res) => {
 })
 
 
+
+
 router.post("/",
-
-
     //--Creo un middleware--
     [
         body("email", "Debe ingresar un email").exists().isEmail(),
         body("message", "Debe escribir algo").exists().isLength({ min: 1, max: 500 }),
-    ]
-
+    ],
     //--fin del middleware--
-
-
-    , async (req, res) => {
+     async (req, res) => {
         const error = validationResult(req)
         if (!error.isEmpty()) {
             const arrayAlert = error.array()
