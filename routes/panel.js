@@ -34,16 +34,22 @@ router.get("/autos", async (req, res) => {
 });
 
 
-router.get("/autos/agregar", (req, res) => {
-  const marca = productModel.getMarcas()
-  res.render("autos_agregar", {marca})
-})
 
 
 
 //-------agregar-------
-router.post("/autos/agregar",  commonMiddleware , async (req, res) =>{
+router.get("/autos/agregar", (req, res) => {
+  let show = true
+  const marca = productModel.getMarcas()
+  res.render("autos_agregar", {marca, show})
+})
 
+
+
+
+
+router.post("/autos/agregar",  commonMiddleware , async (req, res) =>{
+let show = true
  const fail = validationResult(req)
   if (!fail.isEmpty()){
     const marca = productModel.getMarcas()
@@ -55,7 +61,7 @@ router.post("/autos/agregar",  commonMiddleware , async (req, res) =>{
       km: req.body.km,
       
     }
- res.render("autos_agregar", {failAlert, formData, marca})
+ res.render("autos_agregar", {failAlert, formData, marca, show})
   } else {
     let id_img = null
     if (req.files){
@@ -77,6 +83,7 @@ router.post("/autos/agregar",  commonMiddleware , async (req, res) =>{
 
 //------editar--------
 router.get("/autos/:id/editar" , async(req, res)=>{
+  let show = false
   const marca = productModel.getMarcas()
   const row = await productModel.getCar(req.params.id)
   if (row == null) {
@@ -89,13 +96,13 @@ router.get("/autos/:id/editar" , async(req, res)=>{
     modelo: row.Modelo,
     km: row.Km,
   }
-  res.render("autos_agregar" , {formData, marca})
+  res.render("autos_agregar" , {formData, marca,show})
 }
 })
 
 
 router.post("/autos/:id/editar",commonMiddleware, async (req, res) =>{
-
+let show = false
 
   const fail = validationResult(req)
   if (!fail.isEmpty()){
@@ -107,7 +114,7 @@ router.post("/autos/:id/editar",commonMiddleware, async (req, res) =>{
       modelo: req.body.modelo,
       km: req.body.km,
     }
-    res.render("autos_agregar" , {failAlert ,formData, marca})
+    res.render("autos_agregar" , {failAlert ,formData, marca,show})
   } else{
     const {marca, anio, modelo, km, } = req.body
     await productModel.updateCar(marca, anio, modelo, km,req.params.id)
