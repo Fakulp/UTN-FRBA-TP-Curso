@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-02-2022 a las 23:06:47
+-- Tiempo de generación: 06-02-2022 a las 23:09:41
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.0.13
 
@@ -33,7 +33,7 @@ CREATE TABLE `cars` (
   `Anio` varchar(15) NOT NULL,
   `Modelo` varchar(20) NOT NULL,
   `Km` varchar(20) NOT NULL,
-  `Imagen` varchar(64) DEFAULT NULL
+  `Imagen` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
