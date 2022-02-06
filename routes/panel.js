@@ -24,22 +24,13 @@ const commonMiddleware = [
 
 router.get("/autos", async (req, res) => {
  const data = await productModel.getCars()
-
-
-
- const imgCar = data.map((row) => {
-  const img_URL = cloudinary.url(row.Imagen)
-  return  { ...row, img_URL }
-})
-
-
   let exito = false
   if(req.session.exito){
     exito = req.session.exito
     delete  req.session.exito
     }
    
-  res.render("autos_listado", {email: req.session.email ,cars: data , imgCar , exito} );
+  res.render("autos_listado", {email: req.session.email ,cars: data , exito} );
 });
 
 
