@@ -14,7 +14,7 @@ require("dotenv").config()
 //----fileupload----
  app.use(fileupload({
    useTempFiles: true,
-   tempFileDir: "/temp/"
+   tempFileDir: "./tmp/"
  }))
 
 //------fileupload
