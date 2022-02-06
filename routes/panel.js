@@ -44,9 +44,6 @@ router.get("/autos/agregar", (req, res) => {
 //-------agregar-------
 router.post("/autos/agregar",  commonMiddleware , async (req, res) =>{
 
-  let imagen = req.files.Imagen
-  const id_img = (await uploader(imagen.tempFilePath)).public_id
-
  const fail = validationResult(req)
   if (!fail.isEmpty()){
     const marca = productModel.getMarcas()
@@ -56,11 +53,19 @@ router.post("/autos/agregar",  commonMiddleware , async (req, res) =>{
       anio: req.body.anio,
       modelo: req.body.modelo,
       km: req.body.km,
-      imagen: id_img,
       
     }
  res.render("autos_agregar", {failAlert, formData, marca})
   } else {
+    let id_img = null
+    if (req.files){
+      try {
+      id_img = (await uploader(req.files.Imagen.tempFilePath)).public_id
+      } catch {
+        console.log("Error al subir la imagen")
+
+      }
+    }
     const {marca, anio, modelo, km} = req.body
   
    await productModel.addCars(marca,anio, modelo, km, id_img)
@@ -90,8 +95,7 @@ router.get("/autos/:id/editar" , async(req, res)=>{
 
 
 router.post("/autos/:id/editar",commonMiddleware, async (req, res) =>{
-  let imagen = req.files.Imagen
-  const id_img = (await uploader(imagen.tempFilePath)).public_id
+
 
   const fail = validationResult(req)
   if (!fail.isEmpty()){
@@ -102,12 +106,11 @@ router.post("/autos/:id/editar",commonMiddleware, async (req, res) =>{
       anio: req.body.anio,
       modelo: req.body.modelo,
       km: req.body.km,
-      imagen: id_img,
     }
     res.render("autos_agregar" , {failAlert ,formData, marca})
   } else{
-    const {marca, anio, modelo, km, imagen} = req.body
-    await productModel.updateCar(marca, anio, modelo, km, imagen ,req.params.id)
+    const {marca, anio, modelo, km, } = req.body
+    await productModel.updateCar(marca, anio, modelo, km,req.params.id)
     req.session.exito = "Se modifico el auto correctamente"
     res.redirect("/panel/autos")
   }

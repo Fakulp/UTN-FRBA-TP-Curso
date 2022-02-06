@@ -13,7 +13,7 @@
 
     <div class="form-group mb-3 mt-5 col-3 ">
       <label for="Anio">Año</label>
-      <input type="text" class="form-control" id="anio" name="anio" {{#if formData.anio}} 
+      <input type="number" class="form-control" id="anio" name="anio" {{#if formData.anio}} 
         value="{{formData.anio}}" {{/if}}>
     </div>
 
@@ -29,7 +29,7 @@
       <div class="form-row">
         <div class="form-group mb-3 mt-5 col-3 ">
           <label for="Km">Km</label>
-          <input type="text" class="form-control" id="km" name="km" {{#if formData.km}} value="{{formData.km}}"{{/if}}>
+          <input type="number" class="form-control" id="km" name="km" {{#if formData.km}} value="{{formData.km}}"{{/if}}>
         </div>
       </div>
 

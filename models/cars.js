@@ -24,9 +24,9 @@ const getCar = async(id) =>{
     }
 } 
 
-const updateCar = async (marca,anio,modelo,km,imagen,id) =>{
-    const query = "UPDATE cars SET Marca = ?, Anio = ?, Modelo = ?, Km = ?, Imagen = ? WHERE id = ?"
-    const row = await pool.query(query,[marca,anio,modelo,km,imagen ,id])
+const updateCar = async (marca,anio,modelo,km,id) =>{
+    const query = "UPDATE cars SET Marca = ?, Anio = ?, Modelo = ?, Km = ? WHERE id = ?"
+    const row = await pool.query(query,[marca,anio,modelo,km ,id])
     return row
 }
 
