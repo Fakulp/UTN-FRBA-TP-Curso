@@ -1,4 +1,4 @@
-Usuario : admind@admin.com	
+Usuario : admin@admin.com	
 
 
 Pass:  admin
